@@ -1,17 +1,25 @@
 import Foundation
+import ArgumentParser
 
-let taskA = DrawTask(inputFile: "testA", outputDir: "testADir", outputFilename: "testAFilename", scaledResolutions: [100: [1,2,3], 12:[]])
-
-let taskB = DrawTask(inputFile: "testB", outputDir: "testBDir", outputFilename: "testBFilename", scaledResolutions: [22: [1,2,3], 12:[2,3]])
-
-var tasks = [taskA, taskB]
-
-perform(tasks: tasks, forceOverride: true)
-print("Test")
-
-
-if let tasks = try? readJSONDrawTasks(URL(fileURLWithPath: "./draw-tasks.json")) {
-  perform(tasks: tasks, forceOverride: false)
-} else {
-  print("No draw-tasks.json file found or it is misformatted!")
+struct Draw: ParsableCommand {
+  
+  @Flag(name: .shortAndLong, help: "Override existing PNGs")
+  var override = false
+  
+  @Option(name: .shortAndLong, help: "The path to the draw tasks")
+  var tasksPath: String = "./"
+  
+  mutating func run() throws {
+    let url = URL(fileURLWithPath: tasksPath).appendingPathComponent("draw-tasks.json")
+    print("Processing Tasks from \(url.path)")
+    if let tasks = try? readJSONDrawTasks(url) {
+      perform(tasks: tasks, forceOverride: false)
+    } else {
+      print("No draw-tasks.json file found or it is misformatted!")
+    }
+  }
 }
+
+Draw.main()
+
+
