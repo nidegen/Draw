@@ -1,20 +1,20 @@
 [
-    {
-       "outputDir":"./",
-       "inputFile":"./icon.svg",
-       "outputFilename":"AppIcon",
-       "scaledResolutions":{
-          "100":[1, 2, 3],
-          "12":[]
-       }
-    },
-    {
-       "outputDir":"./",
-       "inputFile":"./icon2.svg",
-       "outputFilename":"Test",
-       "scaledResolutions":{
-          "12":[2, 3],
-          "22":[1, 2, 3]
-       }
+  {
+    "outputDir":"./",
+    "inputFile":"./icon.svg",
+    "outputFilename":"AppIcon",
+    "scaledResolutions":{
+      "100":[1, 2, 3],
+      "12":[]
     }
- ]
+  },
+  {
+    "outputDir":"/Users/nicolas/Desktop/Test",
+    "inputFile":"./icon2.svg",
+    "outputFilename":"Test",
+    "scaledResolutions":{
+      "12":[2, 3],
+      "22":[1, 2, 3]
+    }
+  }
+]
