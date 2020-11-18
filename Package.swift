@@ -7,7 +7,7 @@ let package = Package(
   name: "Draw",
   dependencies: [
     // Dependencies declare other packages that this package depends on.
-//    .package(url: "https://github.com/jpsim/Yams", from: "4.0.0"),
+    .package(url: "https://github.com/jpsim/Yams", from: "4.0.0"),
     .package(url: "https://github.com/apple/swift-argument-parser", from: "0.3.0"),
   ],
   targets: [
@@ -16,7 +16,7 @@ let package = Package(
     .target(
       name: "Draw",
       dependencies: [
-        //"Yams",
+        "Yams",
         .product(name: "ArgumentParser", package: "swift-argument-parser")
       ]
     ),
