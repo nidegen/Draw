@@ -1,14 +1,14 @@
 import Foundation
 import Yams
 
-func perform(tasks: [DrawTask], forceOverride: Bool) {
+func perform(tasks: [DrawTask], forceOverride: Bool, location: URL) {
   let tmpURL = URL(fileURLWithPath: "/tmp/drawcommands\(Int.random(in: 1...999))")
   shell("touch \(tmpURL.path)")
   guard let fileUpdater = try? FileHandle(forUpdating: tmpURL) else { exit(0) }
   fileUpdater.seekToEndOfFile()
   
   for task in tasks {
-    task.inkscapeCommands(forceOverride: forceOverride).forEach {
+    task.inkscapeCommands(forceOverride: forceOverride, relativeTo: location).forEach {
       //    shell("echo \($0) >> /Users/nicolas/Desktop/commands.txt")
       fileUpdater.write("\($0)\n".data(using: .utf8)!)
     }

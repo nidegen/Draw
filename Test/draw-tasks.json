@@ -1,7 +1,7 @@
 [
     {
-       "outputDir":"./Test",
-       "inputFile":"./Test/icon.svg",
+       "outputDir":"./",
+       "inputFile":"./icon.svg",
        "outputFilename":"AppIcon",
        "scaledResolutions":{
           "100":[1, 2, 3],
@@ -9,8 +9,8 @@
        }
     },
     {
-       "outputDir":"./Test",
-       "inputFile":"./Test/icon2.svg",
+       "outputDir":"./",
+       "inputFile":"./icon2.svg",
        "outputFilename":"Test",
        "scaledResolutions":{
           "12":[2, 3],

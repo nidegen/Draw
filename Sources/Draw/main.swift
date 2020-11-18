@@ -10,20 +10,20 @@ struct Draw: ParsableCommand {
   var tasksPath: String = "./"
   
   mutating func run() throws {
-    let url = URL(fileURLWithPath: tasksPath)
+    let location = URL(fileURLWithPath: tasksPath)
       
-    let json = url.appendingPathComponent("draw-tasks.json")
-    let yaml = url.appendingPathComponent("draw-tasks.yaml")
+    let json = location.appendingPathComponent("draw-tasks.json")
+    let yaml = location.appendingPathComponent("draw-tasks.yaml")
     
     if json.fileExists {
       if let tasks = try? readJSONDrawTasks(json) {
-        perform(tasks: tasks, forceOverride: false)
+        perform(tasks: tasks, forceOverride: false, location: location)
       } else {
         print("Error: draw-tasks.json is misformatted!")
       }
     } else if yaml.fileExists {
         if let tasks = try? readYAMLDrawTasks(yaml) {
-          perform(tasks: tasks, forceOverride: false)
+          perform(tasks: tasks, forceOverride: false, location: location)
         } else {
           print("Error: draw-tasks.yaml is misformatted!")
         }
