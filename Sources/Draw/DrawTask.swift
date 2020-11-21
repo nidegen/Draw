@@ -14,7 +14,7 @@ struct DrawTask: Codable {
         let scaleExtension = (scale != 1) ? "@\(scale)x" : ""
         
         var destination: URL = (outputDir.first == ".") ? location.appendingPathComponent(outputDir) : URL(fileURLWithPath: outputDir)
-        destination.appendPathComponent(outputFilename + "\(pixels)" + scaleExtension)
+        destination.appendPathComponent(outputFilename + "\(pixels.cleanString)" + scaleExtension)
         destination.appendPathExtension("png")
         
         let inputURL = (inputFile.first == ".") ? location.appendingPathComponent(inputFile) : URL(fileURLWithPath: inputFile)
@@ -27,6 +27,12 @@ struct DrawTask: Codable {
       }
     }
   }
+}
+
+extension Float {
+    var cleanString: String {
+       return self.truncatingRemainder(dividingBy: 1) == 0 ? String(format: "%.0f", self) : String(format: "%.1f", self)
+    }
 }
 
 extension DrawTask {
