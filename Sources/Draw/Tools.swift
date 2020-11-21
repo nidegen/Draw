@@ -32,6 +32,11 @@ func encodeJSON(_ task: DrawTask) throws -> Data {
   return try encoder.encode(task)
 }
 
+func encodeJSON(_ tasks: [DrawTask]) throws -> Data {
+  let encoder = JSONEncoder()
+  return try encoder.encode(tasks)
+}
+
 func  readYAMLDrawTasks(_ url: URL) throws -> [DrawTask] {
   let yamlData = try Data(contentsOf: url).base64EncodedString()
   let decoder = YAMLDecoder()

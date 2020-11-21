@@ -3,18 +3,18 @@
     "outputDir":"./",
     "inputFile":"./icon.svg",
     "outputFilename":"AppIcon",
-    "scaledResolutions":{
-      "100":[1, 2, 3],
-      "12":[]
-    }
+    "scaledResolutions":[
+      { "scales":[1,2,3], "pixels": 100 },
+      { "scales":[], "pixels": 12 },
+    ]
   },
   {
     "outputDir":"/Users/nicolas/Desktop/Test",
     "inputFile":"./icon2.svg",
     "outputFilename":"Test",
-    "scaledResolutions":{
-      "12":[2, 3],
-      "22":[1, 2, 3]
-    }
-  }
+    "scaledResolutions": [
+      { "scales":[2,3], "pixels": 12 },
+      { "scales":[1,2,3], "pixels": 22 },
+    ]
+  },
 ]
