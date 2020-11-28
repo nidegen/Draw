@@ -15,6 +15,10 @@ struct Draw: ParsableCommand {
     let json = location.appendingPathComponent("draw-tasks.json")
     let yaml = location.appendingPathComponent("draw-tasks.yaml")
     
+    if !detectValidInkscapeVersion() {
+      return
+    }
+    
     if json.fileExists {
       do {
         let tasks = try readJSONDrawTasks(json)
