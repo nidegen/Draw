@@ -7,18 +7,35 @@ func perform(tasks: [DrawTask], forceOverride: Bool, location: URL) {
   guard let fileUpdater = try? FileHandle(forUpdating: tmpURL) else { exit(0) }
   fileUpdater.seekToEndOfFile()
   
-  for task in tasks {
-    task.inkscapeCommands(forceOverride: forceOverride, relativeTo: location).forEach {
-      //    shell("echo \($0) >> /Users/nicolas/Desktop/commands.txt")
-      fileUpdater.write("\($0)\n".data(using: .utf8)!)
-    }
-  }
-  fileUpdater.write("quit".data(using: .utf8)!)
   
+  print("Prossessing \(tasks.count) tasks.")
+  let inputs = tasks.map { $0.inputFile }
+  print("Using input files \(inputs).")
+  
+  var commands = [String]()
+  
+  for task in tasks {
+    commands += task.inkscapeCommands(forceOverride: forceOverride, relativeTo: location)
+  }
+  if commands.isEmpty {
+    print("No tasks found to do. Terminating..")
+    return
+  }
+  
+  commands.forEach {
+    //    shell("echo \($0) >> /Users/nicolas/Desktop/commands.txt")
+    fileUpdater.write("\($0)\n".data(using: .utf8)!)
+  }
+  
+  _ = checkForValidInkscapeVersion()
+  
+  fileUpdater.write("quit".data(using: .utf8)!)
   fileUpdater.closeFile()
   
+  print("Performin conversion tasks on inkscape (\(commands.count) commands)")
   shell("inkscape --shell < \(tmpURL.path)")
   shell("rm -f  \(tmpURL.path)")
+  print("Finished successfully")
 }
 
 

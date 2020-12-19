@@ -15,11 +15,8 @@ struct Draw: ParsableCommand {
     let json = location.appendingPathComponent("draw-tasks.json")
     let yaml = location.appendingPathComponent("draw-tasks.yaml")
     
-    if !detectValidInkscapeVersion() {
-      return
-    }
-    
     if json.fileExists {
+      print("Prossessing draw task JSON file at \(json.path)")
       do {
         let tasks = try readJSONDrawTasks(json)
         perform(tasks: tasks, forceOverride: false, location: location)
@@ -27,6 +24,7 @@ struct Draw: ParsableCommand {
         print(error.localizedDescription)
       }
     } else if yaml.fileExists {
+      print("Prossessing draw task YAML file at \(yaml.path)")
       do {
         let tasks = try readYAMLDrawTasks(json)
         perform(tasks: tasks, forceOverride: false, location: location)

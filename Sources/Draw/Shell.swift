@@ -1,5 +1,7 @@
 import Foundation
 
+fileprivate let cachedKey = "InkscapeVersionCached"
+
 @discardableResult func shell(_ command: String) -> (String?, Int32) {
   let task = Process()
   
@@ -17,11 +19,17 @@ import Foundation
   return (output, task.terminationStatus)
 }
 
-func detectValidInkscapeVersion() -> Bool {
+func readInkscapeVersionString() -> String? {
   let (output, _) = shell("inkscape --version")
-  guard var version = output else { return false }
-  version = String(version.dropFirst(9).split(separator: "(").first ?? "")
-  version = version.replacingOccurrences(of: " ", with: "")
+  guard var versionString = output else { return nil }
+  versionString = String(versionString.dropFirst(9).split(separator: "(").first ?? "")
+  versionString = versionString.replacingOccurrences(of: " ", with: "")
+  UserDefaults.standard.set(versionString, forKey: cachedKey)
+  return versionString
+}
+
+func checkForValidInkscapeVersion() -> Bool {
+  guard let version = UserDefaults.standard.string(forKey: cachedKey) ?? readInkscapeVersionString() else { return false }
   print("Found Inkscape version \(version)")
   let minimumVersion = "1.0.1"
 

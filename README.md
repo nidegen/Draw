@@ -5,10 +5,18 @@ A simall command line tool to export pngs from svgs
 
 ## Installation
 
+### Using Homebrew
+
 ```
+brew install inkscape
 brew install mint
 mint install nidegen/Draw
 ```
+
+### By hand
+
+- Install [Inkscape](inkscape.org)
+- Download or clone and compile the swift package executable from source at [](github.com/nidegen/Draw)
 
 
 ## Usage
