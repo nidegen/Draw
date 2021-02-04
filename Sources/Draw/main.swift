@@ -10,7 +10,7 @@ struct Draw: ParsableCommand {
   var tasksPath: String = "./"
   
   mutating func run() throws {
-    let location = URL(fileURLWithPath: tasksPath)
+    let location = URL(fileURLWithPath: tasksPath) 
     
     let json = location.appendingPathComponent("draw-tasks.json")
     let yaml = location.appendingPathComponent("draw-tasks.yaml")
@@ -19,7 +19,7 @@ struct Draw: ParsableCommand {
       print("Prossessing draw task JSON file at \(json.path)")
       do {
         let tasks = try readJSONDrawTasks(json)
-        perform(tasks: tasks, forceOverride: false, location: location)
+        perform(tasks: tasks, forceOverride: override, location: location)
       } catch {
         print(error.localizedDescription)
       }
@@ -27,12 +27,12 @@ struct Draw: ParsableCommand {
       print("Prossessing draw task YAML file at \(yaml.path)")
       do {
         let tasks = try readYAMLDrawTasks(json)
-        perform(tasks: tasks, forceOverride: false, location: location)
+        perform(tasks: tasks, forceOverride: override, location: location)
       } catch {
         print(error.localizedDescription)
       }
     } else {
-      print("No draw-tasks.json or yaml file found!")
+      print("No draw-tasks.json or yaml file found at \(location.path)!")
     }
   }
 }

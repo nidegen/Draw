@@ -32,9 +32,9 @@ func perform(tasks: [DrawTask], forceOverride: Bool, location: URL) {
   fileUpdater.write("quit".data(using: .utf8)!)
   fileUpdater.closeFile()
   
-  print("Performin conversion tasks on inkscape (\(commands.count) commands)")
   shell("inkscape --shell < \(tmpURL.path)")
   shell("rm -f  \(tmpURL.path)")
+  print("Performing conversion tasks on inkscape (\(commands.count) commands)")
   print("Finished successfully")
 }
 

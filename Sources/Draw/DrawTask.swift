@@ -5,16 +5,20 @@ struct DrawTask: Codable {
   var outputDir: String
   var outputFilename: String
   var scaledResolutions: [Resolution]
+  
   struct Resolution: Codable {
     var pixels: Float
     var scales: [Int]
+    var resolutionSuffix: Bool?
     
     func commands(location: URL, inputFile: String, outputDir: String, outputFilename: String, forceOverride: Bool) -> [String] {
       scales.compactMap { scale in
-        let scaleExtension = (scale != 1) ? "@\(scale)x" : ""
+        let scaleExtension = scale != 1 ? "@\(scale)x" : ""
         
         var destination: URL = (outputDir.first == ".") ? location.appendingPathComponent(outputDir) : URL(fileURLWithPath: outputDir)
-        destination.appendPathComponent(outputFilename + "\(pixels.cleanString)" + scaleExtension)
+        destination.appendPathComponent(outputFilename +
+                                          ((resolutionSuffix ?? true) ? "\(pixels.cleanString)" : "") +
+                                          scaleExtension)
         destination.appendPathExtension("png")
         
         let inputURL = (inputFile.first == ".") ? location.appendingPathComponent(inputFile) : URL(fileURLWithPath: inputFile)
