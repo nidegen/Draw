@@ -9,8 +9,8 @@ func perform(tasks: [DrawTask], forceOverride: Bool, location: URL) {
   
   
   print("Prossessing \(tasks.count) tasks.")
-  let inputs = tasks.map { $0.inputFile }
-  print("Using input files \(inputs).")
+//  let inputs = tasks.map { $0.inputFile }
+//  print("Using input files \(inputs).")
   
   var commands = [String]()
   
@@ -32,9 +32,9 @@ func perform(tasks: [DrawTask], forceOverride: Bool, location: URL) {
   fileUpdater.write("quit".data(using: .utf8)!)
   fileUpdater.closeFile()
   
+  print("Performing conversion tasks on inkscape (\(commands.count) commands)")
   shell("inkscape --shell < \(tmpURL.path)")
   shell("rm -f  \(tmpURL.path)")
-  print("Performing conversion tasks on inkscape (\(commands.count) commands)")
   print("Finished successfully")
 }
 
