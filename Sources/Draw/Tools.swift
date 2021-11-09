@@ -33,7 +33,12 @@ func perform(tasks: [DrawTask], forceOverride: Bool, location: URL) {
   fileUpdater.closeFile()
   
   print("Performing conversion tasks on inkscape (\(commands.count) commands)")
-  shell("inkscape --shell < \(tmpURL.path)")
+  let (response, _) = shell("inkscape --shell < \(tmpURL.path)")
+  if let response = response {
+    print("\n\n------------------------\nResponse from Inkscape:")
+    print(response)
+    print("------------------------\n")
+  }
   shell("rm -f  \(tmpURL.path)")
   print("Finished successfully")
 }

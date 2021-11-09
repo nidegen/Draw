@@ -26,7 +26,7 @@ extension DrawTask.Resolution {
       
       var destination: URL = (actualOutputDir.first == ".") ? location.appendingPathComponent(actualOutputDir) : URL(fileURLWithPath: actualOutputDir)
       var filename = actualOutputFilename
-      if resolutionSuffix ?? (outputFilenameOverride == nil) {
+      if resolutionSuffix ?? (outputFilenameOverride == nil && outputDirOverride == nil) {
         filename += "\(pixels.cleanString)"
       }
       filename += scaleExtension
@@ -36,7 +36,11 @@ extension DrawTask.Resolution {
       destination.appendPathExtension("png")
       
       let inputURL = (inputFile.first == ".") ? location.appendingPathComponent(inputFile) : URL(fileURLWithPath: inputFile)
-      
+      do {
+        try FileManager.default.createDirectory(atPath: destination.deletingLastPathComponent().path, withIntermediateDirectories: true, attributes: nil)
+      } catch {
+          print(error)
+      }
       if forceOverride || !FileManager.default.fileExists(atPath: destination.path)  {
         return "file-open:\(inputURL.path); export-filename:\(destination.path); export-width:\(pixels * Float(scale)); export-do"
       } else {
